@@ -16,9 +16,12 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/login", "/css/**").permitAll()
-                        .anyRequest().authenticated() // 그 외는 로그인 필요
+                        .requestMatchers("/products/edit/**", "/products/delete/**", "/products/new", "/products/save").hasRole("ADMIN")
+                        .requestMatchers("/products/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/register", "/login").permitAll()
+                        .anyRequest().authenticated()
                 )
+
 
                 .formLogin(login -> login
                         .loginPage("/login")

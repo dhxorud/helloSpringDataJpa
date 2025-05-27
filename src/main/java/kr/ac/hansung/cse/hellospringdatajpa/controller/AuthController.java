@@ -22,8 +22,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(User user) {
+    public String register(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // 역할이 선택되지 않았을 경우 기본값 설정
+        if (user.getRole() == null || user.getRole().isBlank()) {
+            user.setRole("ROLE_USER");
+        }
+
         userRepository.save(user);
         return "redirect:/login";
     }

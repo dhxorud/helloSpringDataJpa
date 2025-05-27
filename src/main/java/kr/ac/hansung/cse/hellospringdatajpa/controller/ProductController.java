@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -16,14 +17,17 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @GetMapping({"", "/"}) // products 또는 /products/ 둘 다 매핑
-    public String viewHomePage(Model model) {
-
+    @GetMapping({"", "/"})
+    public String viewHomePage(Model model, Authentication authentication) {
         List<Product> listProducts = service.listAll();
         model.addAttribute("listProducts", listProducts);
 
-        return "index";
+        String role = authentication.getAuthorities().iterator().next().getAuthority();
+        model.addAttribute("userRole", role);
+
+        return "index"; // index.html 또는 index.jsp
     }
+
 
     @GetMapping("/new")
     public String showNewProductPage(Model model) {
