@@ -16,16 +16,15 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole("ADMIN")  // 관리자만 접근 가능
                         .requestMatchers("/products/edit/**", "/products/delete/**", "/products/new", "/products/save").hasRole("ADMIN")
                         .requestMatchers("/products/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/register", "/login").permitAll()
                         .anyRequest().authenticated()
                 )
-
-
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/login?success=true", true)  // 로그인 성공 후 /login?success=true로 리디렉션
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());

@@ -10,6 +10,15 @@
 <div class="container">
   <h1 class="mt-5">Product List</h1>
 
+  <!-- 관리자만 볼 수 있는 사용자 목록 보기 버튼 -->
+  <div th:if="${userRole == 'ROLE_ADMIN'}">
+    <button class="btn btn-info mb-3"
+            th:attr="data-href=@{/admin/users}"
+            onclick="location.href=this.getAttribute('data-href')">
+      View User List
+    </button>
+  </div>
+
   <!-- Create 버튼: ROLE_USER는 disabled -->
   <button class="btn btn-primary mb-3"
           th:attr="data-href=@{/products/new}"

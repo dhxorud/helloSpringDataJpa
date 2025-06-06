@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+</head>
+<body>
+
+<h2>전체 사용자 목록</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">1</td>
+        <td th:text="${user.username}">Username</td>
+        <td th:text="${user.role}">Role</td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/helloSpringDataJpa/products">Back to Products</a>
+
+</body>
+</html>

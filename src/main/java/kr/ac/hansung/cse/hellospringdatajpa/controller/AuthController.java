@@ -5,6 +5,7 @@ import kr.ac.hansung.cse.hellospringdatajpa.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -35,7 +36,10 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(@RequestParam(value = "success", required = false) String success, Model model) {
+        if (success != null) {
+            model.addAttribute("success", "로그인 성공!");
+        }
         return "login";
     }
 }

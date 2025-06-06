@@ -34,4 +34,13 @@ public class User {
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+
+    // 여기서 username 필드가 필요합니다.
+    public String getUsername() {
+        return email; // 이메일을 username으로 사용하거나
+    }
+
+    public void setUsername(String username) {
+        // 이메일을 username으로 사용하려면 여기에 이메일 값을 설정
+    }
 }
